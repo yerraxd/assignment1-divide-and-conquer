@@ -2,46 +2,42 @@ public class MergeSorter {
     public static void mergeSort(int arr[]){
         int n = arr.length;
         if (n<2) return;
-        int mid = n/2;
-        int[] l = new int[mid];
-        int[] r = new int[n-mid];
-        for (int i = 0; i<mid;i++){
-            l[i] = arr[i];
-        }
-        for (int i = mid;i<n;i++){
-            r[i-mid] = arr[i];
-        }
-
-        mergeSort(l);
-        mergeSort(r);
-        merge (arr,l,r);
+        int buf[] = new int[n];
+        sort(arr, buf, 0, n-1);
     }
 
-    private static void merge(int arr[],int l[],int r[]){
-        int left = l.length;
-        int right = r.length;
-        int i = 0;
-        int j = 0;
-        int ind = 0;
+    private static void sort(int arr[], int buf[],int lo, int hi){
+        if (lo>=hi) return;
+        int mid = (lo+hi)/2;
+        sort(arr, buf, lo,mid);
+        sort(arr, buf, mid+1, hi);
+        merge(arr,buf,lo,mid,hi);
+    }
+    private static void merge(int arr[],int buf[],int lo, int mid, int hi){
+        for (int x = lo; x<=hi; x++){
+            buf[x] = arr[x];
+        }
 
-        while(i<left && j<right){
-            if (l[i]<=r[j]){
-                arr[ind] = l[i];
+        int i = lo;
+        int j = mid+1;
+        int ind = lo;
+
+        while(i<=mid && j<=hi){
+            if (buf[i]<=buf[j]){
+                arr[ind] = buf[i];
                 i++;
                 ind++;
             }
             else {
-                arr[ind] = r[j];
+                arr[ind] = buf[j];
                 j++;
                 ind++;
             }
         }
 
-        for (int ll = i; ll<left; ll++){
-            arr[ind++] = l[ll];
-        }
-        for (int rr = j; rr<right; rr++){
-            arr[ind++] = r[rr];
+        for (int ll = i; ll<=mid; ll++){
+            arr[ind] = buf[ll];
+            ind++;
         }
     }
 }
