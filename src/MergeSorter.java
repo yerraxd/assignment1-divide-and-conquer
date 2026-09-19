@@ -1,4 +1,6 @@
 public class MergeSorter {
+    private static final int CUTOFF = 16;
+
     public static void mergeSort(int arr[]){
         int n = arr.length;
         if (n<2) return;
@@ -7,7 +9,10 @@ public class MergeSorter {
     }
 
     private static void sort(int arr[], int buf[],int lo, int hi){
-        if (lo>=hi) return;
+        if (hi - lo + 1 <= CUTOFF){
+            insertionSort(arr, lo, hi);
+            return;
+        }
         int mid = (lo+hi)/2;
         sort(arr, buf, lo,mid);
         sort(arr, buf, mid+1, hi);
@@ -38,6 +43,17 @@ public class MergeSorter {
         for (int ll = i; ll<=mid; ll++){
             arr[ind] = buf[ll];
             ind++;
+        }
+    }
+    private static void insertionSort(int arr[], int lo, int hi){
+        for (int i = lo + 1; i <= hi; i++){
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= lo && arr[j] > key){
+                arr[j+1] = arr[j];
+                j--;
+            }
+            arr[j+1] = key;
         }
     }
 }
