@@ -1,17 +1,25 @@
 public class DeterministicSelector {
+    private static int lt;
+    private static int gt;
 
     public static int select(int arr[], int k){
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("array is empty");
+        }
+        if (k < 0 || k >= arr.length) {
+            throw new IllegalArgumentException("k is out of range");
+        }
         return select(arr, 0, arr.length-1, k);
     }
 
     private static int select(int arr[], int l, int r, int k){
         if (l == r) return arr[l];
         int pivotValue = medianOfMedians(arr, l, r);
-        int pi = partition(arr, l, r, pivotValue);
+        partition3(arr, l, r, pivotValue);
 
-        if (k == pi) return arr[pi];
-        if (k < pi) return select(arr, l, pi-1, k);
-        return select(arr, pi+1, r, k);
+        if (k >= lt && k <= gt) return pivotValue;
+        if (k < lt) return select(arr, l, lt-1, k);
+        return select(arr, gt+1, r, k);
     }
 
     private static int medianOfMedians(int arr[], int l, int r){
@@ -22,41 +30,40 @@ public class DeterministicSelector {
         }
 
         int groups = (n + 4) / 5;
-        int medians[] = new int[groups];
         for (int g = 0; g < groups; g++){
             int gl = l + g*5;
             int gr = Math.min(gl+4, r);
             insertionSort(arr, gl, gr);
-            medians[g] = arr[gl + (gr-gl)/2];
+            int med = gl + (gr-gl)/2;
+            int t = arr[l+g];
+            arr[l+g] = arr[med];
+            arr[med] = t;
         }
-        return select(medians, 0, groups-1, groups/2);
+        return select(arr, l, l+groups-1, l + groups/2);
     }
 
-    private static int partition(int arr[], int l, int r, int pivotValue){
-        int idx = l;
-        for (int i = l; i <= r; i++){
-            if (arr[i] == pivotValue){
-                idx = i;
-                break;
+    private static void partition3(int arr[], int l, int r, int p){
+        lt = l;
+        gt = r;
+        int i = l;
+        while (i <= gt){
+            if (arr[i] < p){
+                int t = arr[lt];
+                arr[lt] = arr[i];
+                arr[i] = t;
+                lt++;
+                i++;
+            }
+            else if (arr[i] > p){
+                int t = arr[i];
+                arr[i] = arr[gt];
+                arr[gt] = t;
+                gt--;
+            }
+            else {
+                i++;
             }
         }
-        int t = arr[idx];
-        arr[idx] = arr[r];
-        arr[r] = t;
-
-        int ind = l-1;
-        for (int i = l; i < r; i++){
-            if (arr[i] < pivotValue){
-                ind++;
-                int temp = arr[ind];
-                arr[ind] = arr[i];
-                arr[i] = temp;
-            }
-        }
-        int temp = arr[r];
-        arr[r] = arr[ind+1];
-        arr[ind+1] = temp;
-        return ind+1;
     }
 
     private static void insertionSort(int arr[], int lo, int hi){
