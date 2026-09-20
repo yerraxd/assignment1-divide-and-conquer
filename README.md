@@ -365,14 +365,13 @@ The vertical-line input produces more work in the strip-processing stage and is 
 ### Time vs. Input Size
 
 The project includes a plot showing how execution time changes as `n` increases.
+<img width="722" height="344" alt="time" src="https://github.com/user-attachments/assets/95f18bd0-d2be-4a80-b9a8-9a9ce00cb3fb" />
 
-![Time vs n](plots/time-vs-n.png)
 
 ### Recursion Depth vs. Input Size
 
 The second plot shows how the maximum recursion depth changes as the input size increases.
-
-![Recursion depth vs n](plots/recursion-depth-vs-n.png)
+<img width="728" height="350" alt="depth" src="https://github.com/user-attachments/assets/c73c2317-be5a-487a-a0ca-fb7c3e672513" />
 
 ---
 
@@ -479,39 +478,11 @@ The main implementation challenges were handling recursion correctly, tracking m
 
 # F. Screenshots
 
-The following screenshots should be included in the final submission.
+<img width="1920" height="1080" alt="results main" src="https://github.com/user-attachments/assets/8db70b86-57e3-4d07-989d-1f24010468e8" />
+<img width="1920" height="1080" alt="test 2" src="https://github.com/user-attachments/assets/b60e6a02-08e4-4a9f-96a3-32b9085d5c3c" />
+<img width="1920" height="1080" alt="test 1" src="https://github.com/user-attachments/assets/7433aea5-7b64-4476-bb5d-7cdc4cab96f3" />
 
-## 1. Program Output
 
-A screenshot of the console after running the program.
-
-Expected output:
-
-```text
-Done: 60 rows written to results/results.csv
-```
-
-![Program output](screenshots/program-output.png)
-
-## 2. Test Results
-
-A readable screenshot showing the generated `results.csv` or the experimental result table.
-
-![Test results](screenshots/test-results.png)
-
-## 3. Execution-Time Plot
-
-A screenshot of the plot showing execution time versus input size.
-
-![Time vs n](plots/time-vs-n.png)
-
-## 4. Recursion-Depth Plot
-
-A screenshot of the plot showing recursion depth versus input size.
-
-![Recursion depth vs n](plots/recursion-depth-vs-n.png)
-
----
 
 # Conclusion
 
