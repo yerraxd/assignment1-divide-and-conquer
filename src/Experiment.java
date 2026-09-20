@@ -45,4 +45,27 @@ public class Experiment {
         }
         return pts;
     }
+    public static String runMergeSort(int[] source, String inputType) {
+        int[] arr = source.clone();
+        long start = System.nanoTime();
+        MergeSorter.mergeSort(arr);
+        long timeNs = System.nanoTime() - start;
+        return row("MergeSort", inputType, arr.length, timeNs,
+                MergeSorter.maxDepth, "comparisons", MergeSorter.comparisons);
+    }
+
+    public static String runQuickSort(int[] source, String inputType) {
+        int[] arr = source.clone();
+        long start = System.nanoTime();
+        QuickSorter.quickSort(arr);
+        long timeNs = System.nanoTime() - start;
+        return row("QuickSort", inputType, arr.length, timeNs,
+                QuickSorter.maxDepth, "swaps", QuickSorter.swaps);
+    }
+
+    private static String row(String algo, String inputType, int n, long timeNs,
+                              int depth, String metricName, long metricValue) {
+        return algo + "," + inputType + "," + n + "," + timeNs + "," +
+                depth + "," + metricName + "," + metricValue;
+    }
 }
