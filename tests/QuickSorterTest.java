@@ -52,4 +52,12 @@ public class QuickSorterTest {
             check(arr);
         }
     }
+    @Test
+    void recursionDepthStaysSmall(){
+        int n = 100000;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) arr[i] = i;
+        QuickSorter.quickSort(arr);
+        assertTrue(QuickSorter.maxDepth <= 30);
+    }
 }
