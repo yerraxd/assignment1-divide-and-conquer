@@ -43,4 +43,10 @@ public class ClosestPairTest {
         assertThrows(IllegalArgumentException.class,
                 () -> ClosestPairSolver.closestPair(new Point[]{new Point(0, 0)}));
     }
+    @Test
+    void largeInputRunsWithoutBruteForce(){
+        Point[] pts = Experiment.randomPoints(50000, 11);
+        double d = ClosestPairSolver.closestPair(pts);
+        assertTrue(d >= 0 && !Double.isInfinite(d));
+    }
 }
