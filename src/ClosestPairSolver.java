@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ClosestPairSolver {
     public static int maxDepth = 0;
     public static long comparisons = 0;
@@ -48,23 +50,6 @@ public class ClosestPairSolver {
         while (j <= hi) pts[ind++] = buf[j++];
     }
 
-    private static void sortByY(Point[] pts, int lo, int hi){
-        for (int i = lo + 1; i <= hi; i++){
-            Point key = pts[i];
-            int j = i - 1;
-            while (j >= lo){
-                comparisons++;
-                if (pts[j].y > key.y){
-                    pts[j+1] = pts[j];
-                    j--;
-                } else {
-                    break;
-                }
-            }
-            pts[j+1] = key;
-        }
-    }
-
     private static double solve(Point[] pts, int l, int r){
         curDepth++;
         if (curDepth > maxDepth) maxDepth = curDepth;
@@ -93,7 +78,7 @@ public class ClosestPairSolver {
             }
         }
 
-        sortByY(strip, 0, stripCount - 1);
+        Arrays.sort(strip, 0, stripCount, (a, b) -> Double.compare(a.y, b.y));
 
         for (int i = 0; i < stripCount; i++){
             for (int j = i+1; j < stripCount; j++){

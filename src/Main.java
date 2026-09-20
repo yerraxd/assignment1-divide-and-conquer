@@ -12,6 +12,14 @@ public class Main {
         int[] closestPairSizes = {100, 500, 1_000, 2_000, 5_000, 50_000};
         long seed = 42L;
 
+        for (int w = 0; w < 20; w++){
+            int[] warm = Experiment.randomArray(1000, w);
+            Experiment.runMergeSort(warm, "warmup");
+            Experiment.runQuickSort(warm, "warmup");
+            Experiment.runSelect(warm, "warmup", 500);
+            Experiment.runClosestPair(Experiment.randomPoints(500, w), "warmup");
+        }
+
         List<String> rows = new ArrayList<>();
         rows.add("algorithm,inputType,n,timeNs,maxDepth,metricName,metricValue");
 
