@@ -37,7 +37,6 @@ public class ClosestPairTest {
         Point[] pts = {new Point(1, 1), new Point(5, 5), new Point(1, 1), new Point(9, 2), new Point(7, 7)};
         assertEquals(0.0, ClosestPairSolver.closestPair(pts), 1e-9);
     }
-
     @Test
     void tooFewPoints(){
         assertThrows(IllegalArgumentException.class,
