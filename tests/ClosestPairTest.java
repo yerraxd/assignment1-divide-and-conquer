@@ -1,0 +1,24 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ClosestPairTest {
+
+    private double brute(Point[] p){
+        double best = Double.MAX_VALUE;
+        for (int i = 0; i < p.length; i++){
+            for (int j = i + 1; j < p.length; j++){
+                best = Math.min(best, p[i].distanceTo(p[j]));
+            }
+        }
+        return best;
+    }
+
+    @Test
+    void randomPointsAgainstBruteForce(){
+        int[] sizes = {2, 3, 4, 5, 10, 100, 500, 2000};
+        for (int n : sizes){
+            Point[] pts = Experiment.randomPoints(n, n);
+            assertEquals(brute(pts), ClosestPairSolver.closestPair(pts), 1e-9);
+        }
+    }
+}
