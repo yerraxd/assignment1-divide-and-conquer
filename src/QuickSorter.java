@@ -1,8 +1,15 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QuickSorter {
+    public static int maxDepth = 0;
+    public static long swaps = 0;
+    private static int curDepth = 0;
+
     public static void quickSort(int arr[],int l, int r)
     {
+        curDepth++;
+        if (curDepth > maxDepth) maxDepth = curDepth;
+
         while (l < r) {
             int pi = partition(arr, l, r);
             if (pi - l < r - pi) {
@@ -13,6 +20,7 @@ public class QuickSorter {
                 r = pi - 1;
             }
         }
+        curDepth--;
     }
 
     private static int partition(int[] arr, int l, int r) {
@@ -20,6 +28,7 @@ public class QuickSorter {
         int t = arr[rand];
         arr[rand] = arr[r];
         arr[r] = t;
+        swaps++;
 
         int pi = arr[r];
         int ind = l-1;
@@ -29,11 +38,13 @@ public class QuickSorter {
                 int temp = arr[ind];
                 arr[ind] = arr[i];
                 arr[i] = temp;
+                swaps++;
             }
         }
         int temp = arr[r];
         arr[r] = arr[ind+1];
         arr[ind+1] = temp;
+        swaps++;
         return ind+1;
     }
 }
