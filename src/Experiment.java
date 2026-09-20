@@ -68,4 +68,21 @@ public class Experiment {
         return algo + "," + inputType + "," + n + "," + timeNs + "," +
                 depth + "," + metricName + "," + metricValue;
     }
+    public static String runSelect(int[] source, String inputType, int k) {
+        int[] arr = source.clone();
+        long start = System.nanoTime();
+        DeterministicSelector.select(arr, k);
+        long timeNs = System.nanoTime() - start;
+        return row("DeterministicSelect", inputType, arr.length, timeNs,
+                DeterministicSelector.maxDepth, "comparisons", DeterministicSelector.comparisons);
+    }
+
+    public static String runClosestPair(Point[] source, String inputType) {
+        Point[] pts = source.clone();
+        long start = System.nanoTime();
+        ClosestPairSolver.closestPair(pts);
+        long timeNs = System.nanoTime() - start;
+        return row("ClosestPair", inputType, pts.length, timeNs,
+                ClosestPairSolver.maxDepth, "comparisons", ClosestPairSolver.comparisons);
+    }
 }
