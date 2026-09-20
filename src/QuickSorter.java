@@ -5,7 +5,15 @@ public class QuickSorter {
     public static long swaps = 0;
     private static int curDepth = 0;
 
-    public static void quickSort(int arr[],int l, int r)
+    public static void quickSort(int arr[]){
+        maxDepth = 0;
+        swaps = 0;
+        curDepth = 0;
+        if (arr == null || arr.length < 2) return;
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSort(int arr[],int l, int r)
     {
         curDepth++;
         if (curDepth > maxDepth) maxDepth = curDepth;
