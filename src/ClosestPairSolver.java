@@ -18,26 +18,34 @@ public class ClosestPairSolver {
             byX[i] = points[i];
         }
 
-        sortByX(byX, 0, n-1);
+        Point[] buf = new Point[n];
+        sortByX(byX, buf, 0, n - 1);
 
         return solve(byX, 0, n - 1);
     }
 
-    private static void sortByX(Point[] pts, int lo, int hi){
-        for (int i = lo + 1; i <= hi; i++){
-            Point key = pts[i];
-            int j = i - 1;
-            while (j >= lo){
-                comparisons++;
-                if (pts[j].x > key.x){
-                    pts[j+1] = pts[j];
-                    j--;
-                } else {
-                    break;
-                }
+    private static void sortByX(Point[] pts, Point[] buf, int lo, int hi){
+        if (lo >= hi) return;
+        int mid = (lo + hi) / 2;
+        sortByX(pts, buf, lo, mid);
+        sortByX(pts, buf, mid + 1, hi);
+        mergeByX(pts, buf, lo, mid, hi);
+    }
+
+    private static void mergeByX(Point[] pts, Point[] buf, int lo, int mid, int hi){
+        for (int x = lo; x <= hi; x++) buf[x] = pts[x];
+
+        int i = lo, j = mid + 1, ind = lo;
+        while (i <= mid && j <= hi){
+            comparisons++;
+            if (buf[i].x <= buf[j].x){
+                pts[ind++] = buf[i++];
+            } else {
+                pts[ind++] = buf[j++];
             }
-            pts[j+1] = key;
         }
+        while (i <= mid) pts[ind++] = buf[i++];
+        while (j <= hi) pts[ind++] = buf[j++];
     }
 
     private static void sortByY(Point[] pts, int lo, int hi){
