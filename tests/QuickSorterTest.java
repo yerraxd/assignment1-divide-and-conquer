@@ -43,4 +43,13 @@ public class QuickSorterTest {
         for (int i = 0; i < arr.length; i++) arr[i] = rnd.nextInt(3);
         check(arr);
     }
+    @Test
+    void randomArrays(){
+        Random rnd = new Random(42);
+        for (int t = 0; t < 100; t++){
+            int[] arr = new int[rnd.nextInt(500)];
+            for (int i = 0; i < arr.length; i++) arr[i] = rnd.nextInt(1000) - 500;
+            check(arr);
+        }
+    }
 }
